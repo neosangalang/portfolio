@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="260" height="260" rx="130" fill="url(#bg)"/>
+  <circle cx="130" cy="130" r="129" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <!-- Head silhouette -->
+  <circle cx="130" cy="102" r="46" fill="#30363d"/>
+  <!-- Shoulders silhouette -->
+  <path d="M52 224 C 62 165, 95 160, 130 160 C 165 160, 198 165, 208 224 Z" fill="#30363d"/>
+  <!-- Tech Monogram -->
+  <text x="130" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="700" fill="#f0f6fc" text-anchor="middle">NS</text>
+</svg>
