@@ -318,27 +318,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 8. Contact Form Mailto Handler
-  const contactForm = document.getElementById('quick-contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('contact-sender-name')?.value.trim() || 'Colleague / Recruiter';
-      const subject = document.getElementById('contact-subject')?.value.trim() || 'IT Internship Opportunity / Inquiry';
-      const message = document.getElementById('contact-message')?.value.trim() || '';
+  // 7b. Certificate Lightbox Modal
+  const certModal = document.getElementById('cert-modal');
+  const certModalCloseBtn = document.getElementById('cert-modal-close-btn');
+  const certModalOkBtn = document.getElementById('cert-modal-ok-btn');
+  const certPreviewTrigger = document.getElementById('open-cert-preview');
+  const btnViewCert = document.getElementById('btn-view-cert');
+  let certLastActiveElement = null;
 
-      // Target recipient placeholder (user can edit in index.html data attribute)
-      const recipient = document.getElementById('contact-email-target')?.getAttribute('data-copy-value') || 'neo.sangalang@example.com';
+  function openCertModal() {
+    if (!certModal) return;
+    certLastActiveElement = document.activeElement;
+    certModal.classList.add('is-open');
+    certModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (certModalCloseBtn) certModalCloseBtn.focus();
+  }
 
-      const mailtoUrl = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Hello Neo,\n\nMy name is ${name}.\n\n${message}\n\nBest regards,\n${name}`)}`;
+  function closeCertModal() {
+    if (!certModal) return;
+    certModal.classList.remove('is-open');
+    certModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (certLastActiveElement) certLastActiveElement.focus();
+  }
 
-      // Open email client
-      window.location.href = mailtoUrl;
-      showToast('Opening default email client...');
+  if (certPreviewTrigger) {
+    certPreviewTrigger.addEventListener('click', openCertModal);
+    certPreviewTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openCertModal();
+      }
     });
   }
 
-  // 9. Informative alert for placeholder links
+  if (btnViewCert) {
+    btnViewCert.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCertModal();
+    });
+  }
+
+  if (certModalCloseBtn) {
+    certModalCloseBtn.addEventListener('click', closeCertModal);
+  }
+
+  if (certModalOkBtn) {
+    certModalOkBtn.addEventListener('click', closeCertModal);
+  }
+
+  if (certModal) {
+    certModal.addEventListener('click', (e) => {
+      if (e.target === certModal) {
+        closeCertModal();
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && certModal && certModal.classList.contains('is-open')) {
+      closeCertModal();
+    }
+  });
+
+  // 8. Informative alert for placeholder links
   const placeholderLinks = document.querySelectorAll('a[href="#placeholder-link"]');
   placeholderLinks.forEach(link => {
     link.addEventListener('click', (e) => {
